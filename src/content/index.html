@@ -2,13 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Hello World</title>
+	<title>React Example</title>
+
+	<script src="http://fb.me/react-0.11.1.min.js"></script>
 </head>
 <body>
+	<div id="container">
+		<p>This line should not appear. 2</p>
+	</div>
 
-<p>Hello World</p>
+	<script type="text/javascript">
+		var Hello = React.createClass({
+			render: function() {
+				return React.DOM.div({}, 'Hello ' + this.props.name + ": " + new Date());
+			}
+		});
 
-<script src="bundle.js"></script>
+		React.renderComponent(Hello({name: 'Jim'}), document.getElementById("container"));
+	</script>
+
 
 </body>
 </html>
