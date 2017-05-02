@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div id="container1">
-		<p>This lie should not appear. (1)</p>
+		<p>This line should not appear. (1)</p>
 	</div>
 
 	<div id="container2">
@@ -30,8 +30,17 @@
 			}
 		});
 
-		React.renderComponent(Configuration(), document.getElementById("container1"));
-		React.renderComponent(StockMarketTable(), document.getElementById("container2"));
+		var Application = React.createClass({
+			render: function() {
+				return <div>
+					<Configuration />
+					<hr />
+					<StockMarketTable />
+				</div>
+			}
+		})
+
+		React.renderComponent(Application(), document.getElementById("container1"));
 	</script>
 
 
