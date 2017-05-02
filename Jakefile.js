@@ -8,9 +8,19 @@
 	var jshint = require("simplebuild-jshint");
 	var karma = require("simplebuild-karma");
 	var shell = require("shelljs");
+	var jsx = require("./build/util/jsx_runner.js");
 
+	var GENERATED_DIR = "generated";
+	var JS_DIR = GENERATED_DIR + "/js";
 	var KARMA_CONFIG = "karma.conf.js";
 	var DIST_DIR = "generated/dist";
+
+	directory(JS_DIR);
+
+	desc("Delete generated files");
+	task("clean", function() {
+		jake.rmRf(GENERATED_DIR);
+	});
 
 	//**** General-purpose tasks
 
@@ -22,8 +32,29 @@
 		}, complete, fail);
 	}, { async: true });
 
+	desc("Lint everything");
+	task("lint", ["lintNode", "lintClient"]);
+
+	task("lintNode", function() {
+		process.stdout.write("Linting Node.js code: ");
+		jshint.checkFiles({
+			files: ["Jakefile.js", "src/javascript/**/*.js"],
+			options: nodeLintOptions(),
+			globals: nodeLintGlobals()
+		}, complete, fail);
+	}, { async: true });
+
+	task("lintClient", ["compileJsx"], function() {
+		process.stdout.write("Linting browser code: ");
+		jshint.checkFiles({
+			files: [ JS_DIR + "/**/*.js"],
+			options: browserLintOptions(),
+			globals: browserLintGlobals()
+		}, complete, fail);
+	}, { async: true });
+
 	desc("Default build");
-	task("default", [ "version", "lint", "test" ], function() {
+	task("default", [ "version", "lint", "test", "build" ], function() {
 		console.log("\n\nBUILD OK");
 	});
 
@@ -54,16 +85,16 @@
 		}
 	});
 
-	desc("Lint JavaScript code");
-	task("lint", function() {
-		process.stdout.write("Linting JavaScript: ");
-
-		jshint.checkFiles({
-			files: [ "Jakefile.js", "src/javascript/**/*.js" ],
-			options: lintOptions(),
-			globals: lintGlobals()
-		}, complete, fail);
-	}, { async: true });
+	// desc("Lint JavaScript code");
+	// task("lint", function() {
+	// 	process.stdout.write("Linting JavaScript: ");
+	//
+	// 	jshint.checkFiles({
+	// 		files: [ "Jakefile.js", "src/javascript/**/*.js" ],
+	// 		options: lintOptions(),
+	// 		globals: lintGlobals()
+	// 	}, complete, fail);
+	// }, { async: true });
 
 	desc("Run tests");
 	task("test", function() {
@@ -71,13 +102,7 @@
 		karma.run({
 			configFile: KARMA_CONFIG,
 			expectedBrowsers: [
-				"Firefox 40.0.0 (Mac OS X 10.10.0)",
-				"Chrome 45.0.2454 (Mac OS X 10.10.5)",
-				"IE 11.0.0 (Windows 7 0.0.0)",
-				"IE 9.0.0 (Windows 7 0.0.0)",
-				"Safari 9.0.0 (Mac OS X 10.10.5)",
-				"Mobile Safari 8.0.0 (iOS 8.4.0)",
-				"Chrome Mobile 44.0.2403 (Android 6.0.0)"
+				"Firefox 45.0.0 (Linux 0.0.0)"
 			],
 			strict: !process.env.loose
 		}, complete, fail);
@@ -88,7 +113,7 @@
 		console.log("Building distribution directory: .");
 
 		shell.rm("-rf", DIST_DIR + "/*");
-		shell.cp("src/content/*", DIST_DIR);
+		shell.cp("src/client/*", DIST_DIR);
 
 		jake.exec(
 			"node node_modules/browserify/bin/cmd.js src/javascript/app.js -o " + DIST_DIR + "/bundle.js",
@@ -96,40 +121,69 @@
 			complete);
 	}, { async: true });
 
+	task("compileJsx", [JS_DIR], function() {
+		process.stdout.write("Compiling JSX to JS: ");
+		var pass = jsx.transformFiles(jsxFiles(), JS_DIR);
+		if(!pass) fail("JSX failed");
+	});
+
+	function jsxFiles() {
+		var files = new jake.FileList();
+		files.include("src/client/**.jsx");
+		return files.toArray();
+	}
+
 	directory(DIST_DIR);
 
-
-
-	function lintOptions() {
+	function globalLintOptions() {
 		return {
 			bitwise: true,
+			curly: false,
 			eqeqeq: true,
 			forin: true,
-			freeze: true,
-			futurehostile: true,
-			latedef: "nofunc",
+			immed: true,
+			latedef: false,
+			newcap: true,
 			noarg: true,
-			nocomma: true,
-			nonbsp: true,
+			noempty: true,
 			nonew: true,
-			strict: true,
+			regexp: true,
 			undef: true,
-
-			node: true,
-			browser: true
+			strict: true,
+			trailing: true
 		};
 	}
 
-	function lintGlobals() {
+	function nodeLintOptions() {
+		var options = globalLintOptions();
+		options.node = true;
+		return options;
+	}
+
+	function browserLintOptions() {
+		var options = globalLintOptions();
+		options.browser = true;
+		return options;
+	}
+
+	function nodeLintGlobals() {
 		return {
-			// Mocha
-			describe: false,
-			it: false,
-			before: false,
-			after: false,
+			//Mocha globals
 			beforeEach: false,
-			afterEach: false
+			afterEach: false,
+			describe: false,
+			it: false
 		};
 	}
+
+	function browserLintGlobals() {
+		return {
+			React: false
+		};
+	}
+
+
+
+
 
 }());
