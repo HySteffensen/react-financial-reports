@@ -143,7 +143,7 @@
 			forin: true,
 			immed: true,
 			latedef: false,
-			newcap: true,
+			newcap: false,
 			noarg: true,
 			noempty: true,
 			nonew: true,

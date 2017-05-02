@@ -1,8 +1,14 @@
 /** @jsx React.DOM */
+/*global desc, task, jake, fail, complete, directory, require, console, process */
+/*global desc, task, jake, f  */
+
+(function() {
+
+"use strict";
 
 var ConfigurationField = React.createClass({
   render: function() {
-    return <p>{this.props.name}: ________</p>
+    return <p>{this.props.name}: ________</p>;
   }
 });
 
@@ -13,7 +19,7 @@ var ConfigurationPanel = React.createClass({
       <ConfigurationField name="Starting Balance" />
       <ConfigurationField name="Cost Basis" />
       <ConfigurationField name="Yearly Spending" />
-    </div>
+    </div>;
   }
 });
 
@@ -27,9 +33,9 @@ var StockMarketRow = React.createClass({
       <td>($232)</td>
       <td>$9,905</td>
       <td>$108,981</td>
-    </tr>
+    </tr>;
   }
-})
+});
 
 var StockMarketTable = React.createClass({
   render: function() {
@@ -51,7 +57,7 @@ var StockMarketTable = React.createClass({
         <StockMarketRow year="2012" />
         <StockMarketRow year="2013" />
       </tbody>
-    </table>
+    </table>;
   }
 });
 
@@ -61,8 +67,10 @@ var Application = React.createClass({
       <ConfigurationPanel />
       <hr />
       <StockMarketTable />
-    </div>
+    </div>;
   }
-})
+});
 
 React.renderComponent(Application(), document.body);
+
+}());
