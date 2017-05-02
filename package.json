@@ -6,7 +6,7 @@
     "node": "6.10.1"
   },
   "devDependencies": {
-    "browserify": "^11.0.1",
+    "browserify": "^11.2.0",
     "http-server": "^0.8.0",
     "jake": "^8.0.12",
     "jshint": "^2.8.0",
