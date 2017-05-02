@@ -8,19 +8,30 @@
 	<script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
 </head>
 <body>
-	<div id="container">
-		<p>This line should not appear. 2</p>
+	<div id="container1">
+		<p>This lie should not appear. (1)</p>
+	</div>
+
+	<div id="container2">
+		<p>This line should not appear. (2)</p>
 	</div>
 
 	<script type="text/jsx">
 		/** @jsx React.DOM */
-		var Hello = React.createClass({
+		var Configuration = React.createClass({
 			render: function() {
-				return <p>Hello {this.props.name}: {"" + new Date()}</p>
+				return <p> User configuration goes here</p>
 			}
 		});
 
-		React.renderComponent(Hello({name: 'Jim'}), document.body);
+		var StockMarketTable = React.createClass({
+			render: function() {
+				return <p>Stock market table goes here</p>
+			}
+		});
+
+		React.renderComponent(Configuration(), document.getElementById("container1"));
+		React.renderComponent(StockMarketTable(), document.getElementById("container2"));
 	</script>
 
 
