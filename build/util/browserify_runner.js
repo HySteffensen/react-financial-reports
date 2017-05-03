@@ -22,4 +22,4 @@ exports.bundle = function(baseDir, inFileList, mainFilename, outFilename, succes
 		fs.writeFileSync(outFilename, bundle);
 		return success();
 	});
-}
+};

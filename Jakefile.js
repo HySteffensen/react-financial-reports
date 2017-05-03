@@ -17,6 +17,8 @@
 	var BROWSERIFY_DIR = GENERATED_DIR + "/browserify";
 	var DEPLOY_DIR = GENERATED_DIR + "/deploy";
 
+	var CLIENT_DIR = "src/client";
+
 	var KARMA_CONFIG = "karma.conf.js";
 
 	directory(JSX_DIR);
@@ -43,7 +45,7 @@
 	task("lintNode", function() {
 		process.stdout.write("Linting Node.js code: ");
 		jshint.checkFiles({
-			files: ["Jakefile.js", "src/javascript/**/*.js"],
+			files: [ "Jakefile.js", "src/*.js", "src/server/**/*.js", "build/util/**/*.js" ],
 			options: nodeLintOptions(),
 			globals: nodeLintGlobals()
 		}, complete, fail);
