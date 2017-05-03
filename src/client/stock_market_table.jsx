@@ -5,22 +5,7 @@
 
 "use strict";
 
-var ConfigurationField = React.createClass({
-  render: function() {
-    return <p>{this.props.name}: ________</p>;
-  }
-});
-
-var ConfigurationPanel = React.createClass({
-  render: function() {
-    return <div>
-      <p>Configuration:</p>
-      <ConfigurationField name="Starting Balance" />
-      <ConfigurationField name="Cost Basis" />
-      <ConfigurationField name="Yearly Spending" />
-    </div>;
-  }
-});
+var ConfigurationPanel = require("./configuration_panel.js");
 
 var StockMarketRow = React.createClass({
   render: function() {
@@ -60,16 +45,6 @@ var StockMarketTable = React.createClass({
   }
 });
 
-var Application = React.createClass({
-  render: function() {
-    return <div>
-      <ConfigurationPanel />
-      <hr />
-      <StockMarketTable />
-    </div>;
-  }
-});
-
-exports.Application = Application;
+module.exports = StockMarketTable;
 
 }());
