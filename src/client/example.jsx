@@ -70,6 +70,6 @@ var Application = React.createClass({
   }
 });
 
-React.renderComponent(Application(), document.body);
+exports.Application = Application;
 
 }());

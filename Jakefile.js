@@ -53,8 +53,8 @@
 		process.stdout.write("Linting JSX code: ");
 		jshint.checkFiles({
 			files: [ JSX_DIR + "/**/*.js"],
-			options: browserLintOptions(),
-			globals: browserLintGlobals()
+			options: jsxLintOptions(),
+			globals: jsxLintGlobals()
 		}, complete, fail);
 	}, { async: true });
 
@@ -118,7 +118,7 @@
 
 	task("browserify", [ BROWSERIFY_DIR, "compileJsx" ], function() {
 		process.stdout.write("Bundling client files with Browserify: ");
-		browserify.bundle(compiledJsxFiles(), BROWSERIFY_DIR + "/bundle.js", complete, fail);
+		browserify.bundle(JSX_DIR, compiledJsxFiles(), "./main.js", BROWSERIFY_DIR + "/bundle.js", complete, fail);
 	}, { async: true });
 
 	function jsxFiles() {
@@ -160,7 +160,7 @@
 		return options;
 	}
 
-	function browserLintOptions() {
+	function jsxLintOptions() {
 		var options = globalLintOptions();
 		options.browser = true;
 		return options;
@@ -176,9 +176,13 @@
 		};
 	}
 
-	function browserLintGlobals() {
+	function jsxLintGlobals() {
 		return {
-			React: false
+			React: false,
+
+			// CommonJS
+			exports: false,
+			require: false
 		};
 	}
 
