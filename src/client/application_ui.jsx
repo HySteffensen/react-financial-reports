@@ -18,6 +18,6 @@ var ApplicationUi = React.createClass({
   }
 });
 
-exports.ApplicationUi = ApplicationUi;
+module.exports = ApplicationUi;
 
 }());
