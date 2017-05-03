@@ -90,17 +90,6 @@
 		}
 	});
 
-	// desc("Lint JavaScript code");
-	// task("lint", function() {
-	// 	process.stdout.write("Linting JavaScript: ");
-	//
-	// 	jshint.checkFiles({
-	// 		files: [ "Jakefile.js", "src/javascript/**/*.js" ],
-	// 		options: lintOptions(),
-	// 		globals: lintGlobals()
-	// 	}, complete, fail);
-	// }, { async: true });
-
 	desc("Run tests");
 	task("test", function() {
 		console.log("Testing JavaScript:");
@@ -192,9 +181,5 @@
 			React: false
 		};
 	}
-
-
-
-
 
 }());
