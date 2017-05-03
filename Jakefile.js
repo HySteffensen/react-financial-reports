@@ -11,11 +11,11 @@
 	var jsx = require("./build/util/jsx_runner.js");
 
 	var GENERATED_DIR = "generated";
-	var JS_DIR = GENERATED_DIR + "/js";
+	var JSX_DIR = GENERATED_DIR + "/jsx";
 	var KARMA_CONFIG = "karma.conf.js";
 	var DIST_DIR = "generated/dist";
 
-	directory(JS_DIR);
+	directory(JSX_DIR);
 
 	desc("Delete generated files");
 	task("clean", function() {
@@ -47,7 +47,7 @@
 	task("lintClient", ["compileJsx"], function() {
 		process.stdout.write("Linting browser code: ");
 		jshint.checkFiles({
-			files: [ JS_DIR + "/**/*.js"],
+			files: [ JSX_DIR + "/**/*.js"],
 			options: browserLintOptions(),
 			globals: browserLintGlobals()
 		}, complete, fail);
@@ -121,9 +121,9 @@
 			complete);
 	}, { async: true });
 
-	task("compileJsx", [JS_DIR], function() {
+	task("compileJsx", [JSX_DIR], function() {
 		process.stdout.write("Compiling JSX to JS: ");
-		var pass = jsx.transformFiles(jsxFiles(), JS_DIR);
+		var pass = jsx.transformFiles(jsxFiles(), JSX_DIR);
 		if(!pass) fail("JSX failed");
 	});
 
