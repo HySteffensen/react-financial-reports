@@ -182,7 +182,8 @@
 
 			// CommonJS
 			exports: false,
-			require: false
+			require: false,
+			module: false
 		};
 	}
 
