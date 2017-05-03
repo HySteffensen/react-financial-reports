@@ -6,16 +6,21 @@
 
 	var semver = require("semver");
 	var jshint = require("simplebuild-jshint");
+	var browserify = require("browserify");
+
 	var karma = require("simplebuild-karma");
 	var shell = require("shelljs");
 	var jsx = require("./build/util/jsx_runner.js");
 
 	var GENERATED_DIR = "generated";
 	var JSX_DIR = GENERATED_DIR + "/jsx";
+	var BROWSERIFY_DIR = GENERATED_DIR + "/browserify";
+	var DEPLOY_DIR = GENERATED_DIR + "/deploy";
+
 	var KARMA_CONFIG = "karma.conf.js";
-	var DIST_DIR = "generated/dist";
 
 	directory(JSX_DIR);
+	directory(BROWSERIFY_DIR);
 
 	desc("Delete generated files");
 	task("clean", function() {
@@ -33,7 +38,7 @@
 	}, { async: true });
 
 	desc("Lint everything");
-	task("lint", ["lintNode", "lintClient"]);
+	task("lint", ["lintNode", "lintJsx"]);
 
 	task("lintNode", function() {
 		process.stdout.write("Linting Node.js code: ");
@@ -44,8 +49,8 @@
 		}, complete, fail);
 	}, { async: true });
 
-	task("lintClient", ["compileJsx"], function() {
-		process.stdout.write("Linting browser code: ");
+	task("lintJsx", ["compileJsx"], function() {
+		process.stdout.write("Linting JSX code: ");
 		jshint.checkFiles({
 			files: [ JSX_DIR + "/**/*.js"],
 			options: browserLintOptions(),
@@ -60,7 +65,7 @@
 
 	desc("Run a localhost server");
 	task("run", [ "build" ], function() {
-		jake.exec("node node_modules/http-server/bin/http-server " + DIST_DIR, { interactive: true }, complete);
+		jake.exec("node node_modules/http-server/bin/http-server " + DEPLOY_DIR, { interactive: true }, complete);
 	}, { async: true });
 
 	desc("Erase all generated files");
@@ -109,17 +114,12 @@
 	}, { async: true });
 
 	desc("Build distribution directory");
-	task("build", [ DIST_DIR ], function() {
-		console.log("Building distribution directory: .");
+	task("build", [ DEPLOY_DIR, "browserify" ], function() {
+		console.log("Building deploy directory: .");
 
-		shell.rm("-rf", DIST_DIR + "/*");
-		shell.cp("src/client/*", DIST_DIR);
-
-		jake.exec(
-			"node node_modules/browserify/bin/cmd.js src/javascript/app.js -o " + DIST_DIR + "/bundle.js",
-			{ interactive: true },
-			complete);
-	}, { async: true });
+		shell.rm("-rf", DEPLOY_DIR + "/*");
+		shell.cp("-R", "src/client/*html", BROWSERIFY_DIR + "/*", DEPLOY_DIR);
+	});
 
 	task("compileJsx", [JSX_DIR], function() {
 		process.stdout.write("Compiling JSX to JS: ");
@@ -127,13 +127,24 @@
 		if(!pass) fail("JSX failed");
 	});
 
+	task("browserify", [ BROWSERIFY_DIR, "compileJsx" ], function() {
+		console.log("Bundling client files with Browserify: .");
+		var b = browserify({ debug: true });
+		b.add("./" + JSX_DIR + "/example.js");
+		b.bundle(function(err, bundle) {
+			if (err) fail(err);
+			require("fs").writeFileSync(BROWSERIFY_DIR + "/bundle.js", bundle);
+			complete();
+		});
+	}, { async: true });
+
 	function jsxFiles() {
 		var files = new jake.FileList();
 		files.include("src/client/**.jsx");
 		return files.toArray();
 	}
 
-	directory(DIST_DIR);
+	directory(DEPLOY_DIR);
 
 	function globalLintOptions() {
 		return {

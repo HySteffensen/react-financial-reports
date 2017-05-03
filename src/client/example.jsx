@@ -1,6 +1,5 @@
 /** @jsx React.DOM */
 /*global desc, task, jake, fail, complete, directory, require, console, process */
-/*global desc, task, jake, f  */
 
 (function() {
 
