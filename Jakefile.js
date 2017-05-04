@@ -192,25 +192,33 @@
 		return options;
 	}
 
-	function nodeLintGlobals() {
+	function globalLintGlobals() {
 		return {
-			//Mocha globals
+			//Mocha/Expect globals
 			beforeEach: false,
 			afterEach: false,
 			describe: false,
-			it: false
+			it: false,
+			expect: false
 		};
 	}
 
-	function clientLintGlobals() {
-		return {
-			React: false,
+	function nodeLintGlobals() {
+		return globalLintGlobals();
+	}
 
-			// CommonJS
-			exports: false,
-			require: false,
-			module: false
-		};
+	function clientLintGlobals() {
+		var globals = globalLintGlobals();
+
+		// CommonJs
+		globals.exports = false;
+		globals.require = false;
+		globals.module = false;
+
+		//React
+		globals.React = false;
+
+		return globals;
 	}
 
 }());
