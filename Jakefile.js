@@ -146,6 +146,7 @@
 		clientJsFiles().forEach(function(file) {
 			process.stdout.write(".");
 			var relativeFilename = "/" + file.replace(CLIENT_DIR + "/", "");
+			shell.mkdir("-p", path.dirname(COLLATED_CLIET_DIR + relativeFilename));
 			shell.cp(CLIENT_DIR + relativeFilename, COLLATED_CLIENT_DIR + relativeFilename);
 		});
 		process.stdout.write("\n");

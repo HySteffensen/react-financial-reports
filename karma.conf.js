@@ -10,12 +10,14 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'commonjs'],
+    frameworks: ['mocha', 'expect', 'commonjs'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'src/client/**/*.js'
+      'src/client/**/*.js',
+      'generated/client/vendor/react-0.11.1.js',
+      'generated/client**/*.js'
     ],
 
 
@@ -27,7 +29,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/javascript/**/*.js': ['commonjs']
+      'generated/client/*.js': ['commonjs'],
+      'generated/client/ui/*.js': ['commonjs']
     },
 
 
