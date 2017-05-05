@@ -1,60 +1,55 @@
-How To: Tabs
-============
+React Financial Reports
+================================
 
-This is the source code for the ["How To: Tabs" series](http://www.letscodejavascript.com/v3/episodes/how_to) of James Shore's [Let's Code: Test-Driven JavaScript screencast](http://www.letscodejavascript.com).
+This repository contains a build environment for React Financial Reports. The
+build process is designed with the following parameters in mind:
 
-"How To: Tabs" is focused on showing beginning programmers how work is done in a professional environment. It's best for people who have learned the basics of programming (variables, loops, etc.) but are just starting their professional career.
+1. Self-documentation
+2. Command line processing
+3. Dependency resolution
+4. Focus on code, not configuration
+5. Straightforward and simple
 
-The series covers a wide range of topics, including:
+The build environment is constructed to facilitate the following development procedures:
 
-* Version control
-* Reproducible builds
-* Static code analysis (linting)
-* Cross-browser testing
-* JavaScript modules
-* Test-driven development of front-end code
-* The Document Object Model
-* Design and Refactoring
+1. When the default build is run, it checks that the developer is using the
+   same version of Node that was used to construct the build environment. This
+   ensures that the build doesn't break because a different version of Node is used.
+2. Karma is configured to expect the use a list of predetermined browsers (see
+   Jakefile.js). If any of those browsers are not connected when Karma tests
+   against them, a warning is given which browsers are not connected.
+3. I am including the package dependencies found in the `node_modules` directory, 
+   just as I would in a production environment. This ensures the dependencies are always
+   available throughout the life cycle of the product. Packages come and go and
+   may not be available (for example) ten years from now. If the dependencies
+   are stored on the repository, they will always be available.
+4. While currently set up, the build environment can be set up to be installed and
+   run on Windows. This way, testing can be run not only on multiple browsers, but
+   multiple OS platforms as well.
 
-In the series, we use these techniques to develop a basic tab-switching effect. This repository contains the source code developed in the series.
+To download and install the build environment on your computer:
+---------------------------------------------------------------
 
-
-To try the code on your computer:
----------------------------------
-
-1. Install [Node.js 0.12.4](http://nodejs.org/dist/v0.12.4/).
-2. Install [Git](http://git-scm.com/downloads).
+To download the build:
+1. Install [Node.js 5.10.1] (http://nodejs.org/dist/v5.10.1/).
+2. Install [Git] (http://git-scm.com/downloads).
 3. Open a command prompt.
-4. Change to the directory that will contain the project. In your command prompt, type: `cd <directory>` (where `<directory>` is the directory that will contain the project).
-5. Copy the source repository to your computer: `git clone https://github.com/jamesshore/how_to_tabs.git`
-6. Change to the project directory: `cd how_to_tabs`
+4. Change to the directory that will contain the project. In your command prompt,
+   type: `cd <directory>` (where `<directory>` is the directory that will contain
+   the project).
+5. Copy the source repository to your computer from GitHub:
+   'https://github.com/HySteffensen/build-environment.git'.
+6. Change to the project directory: `cd build-environment`
 
-To run the build:
+To install the build:
+1. Install dependencies: `npm install`
+2. Install jake: `npm install jake -g`
+3. Run jake: `jake`
 
-1. Run `./jake.sh karma` (Mac/Unix) or `jake karma` (Windows) to start the Karma server 
-2. Navigate at least one browser to `http://localhost:9876`
-3. Run `./jake.sh loose=true` (Mac/Unix) or `jake loose=true` (Windows) each time you want to run the build
+________________________________________________________________________________
+To run the Karma server:
+1. In Mac or Unix, run `./jake.sh karma` to start the Karma server
+2. Open `http://localhost:8080` in a browser.
 
-Note that some episodes' code doesn't build or run successfully. For details, watch the episodes.
- 
-To run the application:
-
-1. Run `./jake.sh run` (Mac/Unix) or `jake run` (Windows) to start a local web server
-2. Navigate a browser to `http://localhost:8080`
-
-
-To look at the source code for a particular episode:
-----------------------------------------------------
-
-Every episode's source code has an associated `episodeXX` tag. You can switch to other episodes like this:
-
-1. If you made any changes, check them in.
-2. Erase generated files: `git clean -fdx`
-3. Reset any changes: `git reset --hard`
-4. Check out old version: `git checkout episodeXX` (For example, `git checkout episode1`.)
-
-After changing versions, look at your copy of the `readme.md` file. It will have information about working with the code for that episode. In particular:
-  
-1. Look at the "Install Node.js" line in the readme to see which version of Node the code is designed to work with.
-2. If it's different than the version you have installed, [find and install](http://nodejs.org/dist) the correct version of Node.
-3. Read the rest of the readme to see how to run the code.
+To run the default build:
+1. In Max or Unix, run `./jake.sh`

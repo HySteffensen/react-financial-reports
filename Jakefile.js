@@ -165,20 +165,20 @@
 
 	function globalLintOptions() {
 		return {
-			bitwise: true,
-			curly: false,
-			eqeqeq: true,
-			forin: true,
-			immed: true,
-			latedef: false,
-			newcap: true,
-			noarg: true,
-			noempty: true,
-			nonew: true,
-			regexp: true,
-			undef: true,
-			strict: true,
-			trailing: true
+			bitwise:true,
+			curly:false,
+			eqeqeq:true,
+			forin:true,
+			immed:true,
+			latedef:false,
+			newcap:true,
+			noarg:true,
+			noempty:true,
+			nonew:true,
+			regexp:true,
+			undef:true,
+			strict:true,
+			trailing:true
 		};
 	}
 
@@ -212,6 +212,9 @@
 
 	function clientLintGlobals() {
 		var globals = globalLintGlobals();
+
+		// Karma
+		globals.dump = false;
 
 		// CommonJs
 		globals.exports = false;
