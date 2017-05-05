@@ -29,15 +29,14 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       // be sure not to load the vendor directory! It is not Browserfied so shouldn't be processed.
-      'generated/client/*.js': ['commonjs'],
-      'generated/client/ui/*.js': ['commonjs']
+      'generated/client/**/*.js': ['commonjs']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['dots'],
+    reporters: ['progress'],
 
 
     // web server port
