@@ -1,26 +1,24 @@
 /** @jsx React.DOM */
-/*global desc, task, jake, fail, complete, directory, require, console, process */
 
 (function() {
+  "use strict";
 
-"use strict";
+  var ConfigurationField = React.createClass({ displayName: 'ConfigurationField',
+    render: function() {
+      return React.DOM.p(null, this.props.name, ": _______");
+    }
+  });
 
-var ConfigurationField = React.createClass({
-  render: function() {
-    return <p>{this.props.name}: ________</p>;
-  }
-});
-
-var ConfigurationPanel = React.createClass({
-  render: function() {
-    return <div>
-      <p>Configuration:</p>
-      <ConfigurationField name="Starting Balance" />
-      <ConfigurationField name="Cost Basis" />
-      <ConfigurationField name="Yearly Spending" />
-    </div>;
-  }
-});
+  var ConfigurationPanel = React.createClass({displayName: 'ConfigurationPanel',
+    render: function() {
+      return React.DOM.div(null,
+        React.DOM.p(null, "Configuration:"),
+        ConfigurationField({name: "Starting Balance"}),
+        ConfigurationField({name: "Cost Basis"}),
+        ConfigurationField({name: "Yearly Spending"})
+      );
+    }
+  });
 
   module.exports = ConfigurationPanel;
 }());

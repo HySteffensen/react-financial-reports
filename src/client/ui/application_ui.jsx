@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-/*global desc, task, jake, fail, complete, directory, require, console, process */
 
 (function() {
 
@@ -8,13 +7,13 @@
 var ConfigurationPanel = require("./configuration_panel.js");
 var StockMarketTable = require("./stock_market_table.js");
 
-var ApplicationUi = React.createClass({
+var ApplicationUi = React.createClass({ displayName: 'ApplicationUi',
   render: function() {
-    return <div>
-      <ConfigurationPanel />
-      <hr />
-      <StockMarketTable />
-    </div>;
+    return React.DOM.div(null,
+      ConfigurationPanel(null),
+      React.DOM.hr(null),
+      StockMarketTable(null)
+    );
   }
 });
 
