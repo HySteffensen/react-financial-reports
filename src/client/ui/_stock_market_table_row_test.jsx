@@ -4,15 +4,13 @@
   "use strict";
 
 	var TestUtils = React.addons.TestUtils;
-	var StockMarketTable = require("./stock_market_table.js");
+	var StockMarketTableRow = require("./stock_market_table_row.js");
 
 	describe("StockMarket Table Row", function() {
 		it("renders static HTML with year", function() {
-      var table = TestUtils.renderIntoDocument(<StockMarketTable />);
-      dump(table);
-			dump(TestUtils.findRenderedDOMComponentWithTag(table, "table").getDOMNode().innerHTML);
-      dump(React.renderComponentToStaticMarkup(<StockMarketTable />));
-		});
+      var rendered = React.renderComponentToStaticMarkup(<StockMarketTableRow year="1989" />);
+      dump(rendered);
+    });
 	});
 
 }());
