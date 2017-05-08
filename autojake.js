@@ -6,7 +6,7 @@
   var gaze = require("gaze");
   var spawn = require("child_process").spawn;
 
-  var WATCH = "src/**/*.js";
+  var WATCH = "src/**/*.js*";
 
   var COMMAND = "./jake.sh";
   var COMMAND_ARGS = [];
