@@ -3,20 +3,20 @@
 (function() {
   "use strict";
 
-  var ConfigurationField = React.createClass({ displayName: 'ConfigurationField',
+  var ConfigurationField = React.createClass({
     render: function() {
-      return React.DOM.p(null, this.props.name, ": _______");
+      return <p>{this.props.name}: _______</p>;
     }
   });
 
-  var ConfigurationPanel = React.createClass({displayName: 'ConfigurationPanel',
+  var ConfigurationPanel = React.createClass({
     render: function() {
-      return React.DOM.div(null,
-        React.DOM.p(null, "Configuration:"),
-        ConfigurationField({name: "Starting Balance"}),
-        ConfigurationField({name: "Cost Basis"}),
-        ConfigurationField({name: "Yearly Spending"})
-      );
+      return <div>
+        <p>Configuration:</p>
+        <ConfigurationField name="Starting Balance" />
+        <ConfigurationField name="Cost Basis" />
+        <ConfigurationField name="Yearly Spending" />
+      </div>;
     }
   });
 

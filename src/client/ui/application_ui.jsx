@@ -7,13 +7,13 @@
 var ConfigurationPanel = require("./configuration_panel.js");
 var StockMarketTable = require("./stock_market_table.js");
 
-var ApplicationUi = React.createClass({ displayName: 'ApplicationUi',
+var ApplicationUi = React.createClass({
   render: function() {
-    return React.DOM.div(null,
-      ConfigurationPanel(null),
-      React.DOM.hr(null),
-      StockMarketTable(null)
-    );
+    return <div>
+      <ConfigurationPanel />
+      <hr />
+      <StockMarketTable />
+    </div>;
   }
 });
 

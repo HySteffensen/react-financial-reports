@@ -4,17 +4,17 @@
 
 "use strict";
 
-  var StockMarketTableRow = React.createClass({displayName: 'StockMarketTableRow',
+  var StockMarketTableRow = React.createClass({
     render: function() {
-      return React.DOM.tr(null,
-          React.DOM.td(null, this.props.year),
-          React.DOM.td(null, "$10,000"),
-          React.DOM.td(null, "$7,000"),
-          React.DOM.td(null, "($695)"),
-          React.DOM.td(null, "($232)"),
-          React.DOM.td(null, "$9,905"),
-          React.DOM.td(null, "$108,981")
-      );
+      return <tr>
+        <td>{this.props.year}</td>
+        <td>$10,000</td>
+        <td>$7,000</td>
+        <td>($695)</td>
+        <td>($232)</td>
+        <td>$9,905</td>
+        <td>$108,981</td>
+      </tr>;
     }
   });
 
