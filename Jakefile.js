@@ -20,8 +20,7 @@
 	var DEPLOY_DIR = GENERATED_DIR + "/deploy";
 
 	var CLIENT_DIR = "src/client";
-	// var VENDOR_DIR = "src/vendor";
-	var VENDOR_DIR = DEPLOY_DIR + "/vendor";
+	var VENDOR_DIR = "src/vendor";
 
 
 	var KARMA_CONFIG = "karma.conf.js";
@@ -51,8 +50,7 @@
 		console.log("Building deploy directory: .");
 
 		shell.rm("-rf", DEPLOY_DIR + "/*");
-		shell.cp("-R", "src/client/*.html", BROWSERIFY_DIR + "/*", DEPLOY_DIR);
-		shell.cp("-R", "src/client/vendor/*.js", VENDOR_DIR);
+		shell.cp("-R", CLIENT_DIR + "/*.html", BROWSERIFY_DIR + "/*", VENDOR_DIR, DEPLOY_DIR);
 	});
 
 	desc("Lint everything");

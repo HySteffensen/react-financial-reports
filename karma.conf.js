@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/client/vendor/react-with-addons-0.11.1.js',
+      'src/vendor/react-with-addons-0.11.1.js',
       'generated/client/**/*.js'
     ],
 
