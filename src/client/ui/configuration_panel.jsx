@@ -5,7 +5,9 @@
 
   var ConfigurationField = React.createClass({
     render: function() {
-      return <p>{this.props.name}: _______</p>;
+      return <div>
+        <label>{this.props.name}: </label><input type="text" />
+      </div>;
     }
   });
 
