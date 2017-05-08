@@ -1,3 +1,5 @@
+/* General */
+
 body, input {
   font-family: sans-serif;
   font-size: 14px;
@@ -5,6 +7,10 @@ body, input {
 
 body {
   max-width: 60em;
+}
+
+.negative {
+  color: red;
 }
 
 /* Title */
