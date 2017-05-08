@@ -2,8 +2,12 @@
   "use strict";
 
   exports.unlessDefined = function(variable, variableName) {
-    variableName = variableName ? " [" + variableName + "] " : " ";
-    if (variable === undefined) throw new FailFastException(exports.unlessDefined, "Required variable" + variableName + "was not defined");
+    if (variable === undefined) throw new FailFastException(exports.unlessDefined, "Required variable" + normalize(variableName) + "was not defined");
+  };
+
+  exports.unlessNumber = function(variable, variableName) {
+    var type = getType(variable);
+    if (type !== "number") throw new FailFastException(exports.unlessNumber, "Expected variable" + normalize(variableName) + "to be number, but was " + type);
   };
 
   exports.unlessTrue = function(variable, message) {
@@ -18,6 +22,18 @@
 
     throw new FailFastException(exports.unreachable, message);
   };
+
+  function getType(variable) {
+    var type = typeof variable;
+    if (variable === null) type = "null";
+    if (Array.isArray(variable)) type = "array";
+    if (type === "number" && isNaN(variable)) type = "NaN";
+    return type;
+  }
+
+  function normalize(variableName) {
+    return variableName ? " [" + variableName + "] " : " ";
+  }
 
   var FailFastException = exports.FailFastException = function(fnToRemoveFromStackTrace, message) {
     if (Error.captureStackTrace) Error.captureStackTrace(this, fnToRemoveFromStackTrace);
