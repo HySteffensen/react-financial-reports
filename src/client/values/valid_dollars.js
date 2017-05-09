@@ -5,7 +5,7 @@
   var InvalidDollars = require("./invalid_dollars.js");
 
   var ValidDollars = module.exports = function ValidDollars(amount) {
-    failFast.unlessDefined(amount, "amount");
+    failFast.unlessNumber (amount, "amount");
     if (!inRange(amount)) return new InvalidDollars();
 
     this._amount = amount;
