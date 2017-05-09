@@ -18,7 +18,7 @@
     return true;
   };
 
-  ValidDollars.prototype._toCoreDataType = function _toCoreDataType() {
+  ValidDollars.prototype._toNumber = function _toNumber() {
     return this._amount;
   };
 
@@ -76,7 +76,7 @@
     failFast.unlessDefined(operand, "operand");
     if (!operand.isValid()) return new InvalidDollars();
 
-    return new ValidDollars(fn(self._amount, operand._toCoreDataType()));
+    return new ValidDollars(fn(self._amount, operand._toNumber()));
   }
 
   function inRange(value) {

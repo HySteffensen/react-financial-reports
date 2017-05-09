@@ -1,6 +1,8 @@
 (function() {
   "use strict";
 
+  var failFast = require("../util/fail_fast.js");
+
   var InvalidDollars = module.exports = function() {
     this._invalid = "invalid dollars";
   };
@@ -9,5 +11,28 @@
     return false;
   };
 
+  InvalidDollars.prototype.plus =
+  InvalidDollars.prototype.minus =
+  InvalidDollars.prototype.subtractToZero =
+  InvalidDollars.prototype.percentage =
+  InvalidDollars.prototype.min =
+
+  function binaryArithmetic(operand) {
+    failFast.unlessDefined(operand, "operand");
+    return new InvalidDollars();
+  };
+
+  InvalidDollars.prototype.flipSign =
+    function unaryArithmetic() {
+      return new InvalidDollars();
+    };
+
+  InvalidDollars.prototype.toString = function toString() {
+    return "$???";
+  };
+
+  InvalidDollars.prototype.renderTo = function renderTo(target) {
+    target.setInvalid("Invalid dollar amount");
+  };
 
 }());

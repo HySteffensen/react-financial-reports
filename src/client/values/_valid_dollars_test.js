@@ -9,17 +9,16 @@
   var MAX_VALID = new ValidDollars(ValidDollars.MAX_VALUE);
   var MIN_VALID = new ValidDollars(ValidDollars.MIN_VALUE);
 
-
-  var _0 = new ValidDollars(0);
-  var _10 = new ValidDollars(10);
-  var _20 = new ValidDollars(20);
-  var _30 = new ValidDollars(30);
-  var _50 = new ValidDollars(50);
-  var _100 = new ValidDollars(100);
-  var _minus20 = new ValidDollars(-20);
-  var invalid = new InvalidDollars();
-
   describe("ValidDollars", function() {
+    var _0 = new ValidDollars(0);
+    var _10 = new ValidDollars(10);
+    var _20 = new ValidDollars(20);
+    var _30 = new ValidDollars(30);
+    var _50 = new ValidDollars(50);
+    var _100 = new ValidDollars(100);
+    var _minus20 = new ValidDollars(-20);
+    var invalid = new InvalidDollars();
+
     describe("logic", function() {
       it("prevents dollars from being constructed outside of valid range", function() {
         expect(new ValidDollars(ValidDollars.MAX_VALUE + 1)).to.eql(new InvalidDollars());
@@ -31,7 +30,7 @@
       });
 
       it("converts to underlying data type (for 'Dollars family' use only)", function() {
-        expect(new ValidDollars(12.34567891)._toCoreDataType()).to.equal(12.34567891);
+        expect(new ValidDollars(12.34567891)._toNumber()).to.equal(12.34567891);
       });
 
       it("adds", function() {
