@@ -8,7 +8,30 @@
   exports.unlessNumber = checkTypeFn("number");
   exports.unlessString = checkTypeFn("string");
   exports.unlessArray = checkTypeFn("array");
-  exports.unlessObject = checkTypeFn("object");
+  exports.unlessFunction = checkTypeFn("function");
+
+  exports.unlessObject = function(variable, constructor, variableName) {
+    checkTypeFn("object")(variable, variableName);
+    if (constructor === undefined) return;
+
+    if (!(variable instanceof constructor)) {
+      var variablePrototype = Object.getPrototypeOf(variable);
+      var constructorType = constructor.name;
+      var variableType;
+
+      constructorType = constructorType ? constructorType + " instance" : "a specific type";
+      if (variablePrototype === null) {
+        variableType = ", but it has no prototype";
+      }
+      else {
+        variableType = variablePrototype.constructor.name;
+        variableType = variableType ? ", but was " + variableType: "";
+      }
+
+
+      throw new FailFastException(exports.unlessObject, "Expected object" + normalize(variableName) + "to be " + constructorType + variableType);
+    }
+  };
 
   exports.unlessTrue = function(variable, message) {
     if (message === undefined) message = "Expected condition to be true";
@@ -45,7 +68,6 @@
     if (Error.captureStackTrace) Error.captureStackTrace(this, fnToRemoveFromStackTrace);
     this.message = message;
   };
-
   FailFastException.prototype = Object.create(Error.prototype);
   FailFastException.prototype.constructor = FailFastException;
   FailFastException.prototype.name = "FailFastException";
