@@ -2,26 +2,8 @@
 
   "use strict";
 
-  var __RenderTargetStub = module.exports = function() {
-    this.reset();
-  };
+  var __RenderTargetStub = module.exports = function() {};
 
-  __RenderTargetStub.prototype.setText = function setText(text) {
-    this.text = text;
-  };
-
-  __RenderTargetStub.prototype.setNegative = function setNegative() {
-    this.negative = true;
-  };
-
-  __RenderTargetStub.prototype.setInvalid = function setInvalid(tooltip) {
-    this.invalid = true;
-    this.tooltip = tooltip;
-  };
-
-  __RenderTargetStub.prototype.reset = function reset() {
-    this.text = undefined;
-    this.negative = false;
-    this.invalid = false;
-    this.tooltip = undefined;
+  __RenderTargetStub.prototype.render = function render(values) {
+    this.rendering = values;
   };

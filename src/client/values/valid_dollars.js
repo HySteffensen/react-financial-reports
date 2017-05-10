@@ -6,7 +6,7 @@
   var InvalidDollars = require("./invalid_dollars.js");
 
   var ValidDollars = module.exports = function ValidDollars(amount) {
-    failFast.unlessNumber (amount, "amount");
+    failFast.unlessNumber(amount, "amount");
     if (!inRange(amount)) return new InvalidDollars();
 
     this._amount = amount;
@@ -63,8 +63,11 @@
   };
 
   ValidDollars.prototype.renderTo = function renderTo(target) {
-    target.setText(this.toString());
-    if (this._amount <= -0.5) target.setNegative();
+    target.render({
+      text: this.toString(),
+      negative: (this._amount <= -0.5),
+      invalid: false
+    });
   };
 
   function absoluteValueString(amount) {
