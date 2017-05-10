@@ -1,19 +1,20 @@
 (function() {
-  "use strict";
+"use strict";
 
-  var failFast = require("../util/fail_fast.js");
-  var ValidDollars = require("./valid_dollars.js");
-  var InvalidDollars = require("./invalid_dollars.js");
+var failFast = require("../util/fail_fast.js");
+var ValidDollars = require("./valid_dollars.js");
+var InvalidDollars = require("./invalid_dollars.js");
 
-  var UserEnteredDollars = module.exports = function UserEnteredDollars(text) {
-    failFast.unlessString(text, "text");
+var UserEnteredDollars = module.exports = function UserEnteredDollars(text) {
+  failFast.unlessString(text, "text");
 
-    this._backingDollars = parse(text);
-  };
+  this._backingDollars = parse(text);
+};
 
-  UserEnteredDollars.prototype.isValid = function isValid() {
-    return this._backingDollars.isValid();
-  };
+
+UserEnteredDollars.prototype.isValid = function isValid() {
+  return this._backingDollars.isValid();
+};
 
   UserEnteredDollars.prototype._toNumber = function _toNumber() {
     return this._backingDollars._toNumber();
@@ -41,6 +42,14 @@
 
   UserEnteredDollars.prototype.min = function min(operand) {
     return this._backingDollars.min(operand);
+  };
+
+  UserEnteredDollars.prototype.toString = function toString() {
+    return this._backingDollars.toString();
+  };
+
+  UserEnteredDollars.prototype.renderTo = function renderTo(target) {
+    this._backingDollars.renderTo(target);
   };
 
   function parse(text) {
@@ -77,7 +86,5 @@
   		return text.slice(-end.length) === end;
   	}
   }
-
-
 
 }());
