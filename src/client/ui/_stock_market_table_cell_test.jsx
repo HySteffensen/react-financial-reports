@@ -21,6 +21,11 @@
       expect(cell.textContent).to.equal("1989");
     });
 
+    it("renders negative values with CSS class", function() {
+      var cell = domNodeFor(new ValidDollars(-10));
+      expect(textOf(cell)).to.equal("($10)");
+    });
+
     function domNodeFor(value) {
       var table = TestUtils.renderIntoDocument(
         <table><tbody><tr>
