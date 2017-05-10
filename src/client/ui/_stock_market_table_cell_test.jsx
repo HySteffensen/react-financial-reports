@@ -16,15 +16,20 @@
 
     it("renders text of value", function() {
       var value = new Year(1989);
+      var cell = domNodeFor(value);
+
+      expect(cell.textContent).to.equal("1989");
+    });
+
+    function domNodeFor(value) {
       var table = TestUtils.renderIntoDocument(
         <table><tbody><tr>
           <StockMarketTableCell value={ value }/>
         </tr></tbody></table>
       );
       var cell = TestUtils.findRenderedDOMComponentWithTag(table, "td");
-
-      expect(cell.getDOMNode().textContent).to.equal("1989");
-    });
+      return cell.getDOMNode();
+    }
 
 	});
 
