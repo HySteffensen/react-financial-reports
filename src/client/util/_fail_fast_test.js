@@ -49,7 +49,7 @@
       expect(unlessArray(null, "name")).to.throwException(/Expected variable \[name\] to be array, but was null/);
       expect(unlessFunction(null, "name")).to.throwException(/Expected variable \[name\] to be function, but was null/);
     });
-    it("checks if variable is other types as well", function() {
+    it("checks if variable is object of specific type", function() {
       function Example1() {}
       function Example2() {}
       function NoConstructor() {}
@@ -66,13 +66,14 @@
       expect(unlessObject(new NoConstructor(), Example2)).to.throwException(/Expected object to be (Example2 instance|a specific type)/);
       expect(unlessObject(new Example1(), Example2, "name")).to.throwException(/Expected object \[name\] to be (Example2 instance|a specific type)/);
 
-      if (Object.create) {
+		if (Object.create) {    // don't run this test on IE 8
         expect(unlessObject(Object.create(null), Example2)).to.throwException(/Expected object to be (Example2 instance|a specific type), but it has no prototype/);
       }
     });
 
     it("checks if condition is true", function() {
       var unlessTrue = wrap(failFast.unlessTrue);
+
       expect(unlessTrue(true)).to.not.throwException();
       expect(unlessTrue(false)).to.throwException(/Expected condition to be true/);
       expect(unlessTrue(false, "a message")).to.throwException(/a message/);
