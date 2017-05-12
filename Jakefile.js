@@ -49,7 +49,13 @@
 		console.log("Building deploy directory: .");
 
 		shell.rm("-rf", DEPLOY_DIR + "/*");
-		shell.cp("-R", CLIENT_DIR + "/*.html", CLIENT_DIR + "/*.css", BROWSERIFY_DIR + "/*", VENDOR_DIR, DEPLOY_DIR);
+		shell.cp("-R",
+				CLIENT_DIR + "/*.html",
+				CLIENT_DIR + "/*.css",
+				CLIENT_DIR + "/*.png",
+				BROWSERIFY_DIR + "/*",
+				VENDOR_DIR,
+			DEPLOY_DIR);
 	});
 
 	desc("Lint everything");
